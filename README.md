@@ -90,3 +90,40 @@ alias va='source venv/bin/activate'
 Reload `~/.bashrc` by running `source ~/.bashrc`, or simply start a new
 terminal. Now you can simply run `va` from the project directory in order to
 activate the virtual environment.
+
+### Managing dependencies
+
+**Warning:** Always make sure you've activated the virtual environment before
+running `pip` commands, so that you do not accidentally modify your global
+Python environment.
+
+#### Installing existing dependencies
+
+After creating the virtual environment and activating it for the first time,
+install the project dependencies specified in `requirements.txt`:
+
+```
+pip install -r requirements.txt
+```
+
+You should also run this command after pulling changes that add new
+dependencies to `requirements.txt`.
+
+#### Adding a dependency
+
+In order to add a new dependency (where `PACKAGE` is the name of the Python
+package you wish to add as a dependency, e.g. `Flask`):
+
+1. Run `pip install PACKAGE` to install the package to the virtual
+   environment.
+2. Run `pip show PACKAGE` to show details about the package. There should be
+   a `Version` line near the beginning of the output.
+3. Add `PACKAGE>=VERSION` to `requirements.txt`, where `VERSION` is the package
+   version specified by the `Version` line from the previous step.
+4. Commit the changes to `requirements.txt`.
+
+#### Removing a dependency
+
+In order to remove a dependency that is no longer needed, run `pip uninstall
+PACKAGE`, remove the package's line from `requirements.txt`, and commit the
+changes to `requirements.txt`.
