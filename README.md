@@ -37,6 +37,11 @@ virtualenv venv -p python3.6
 This creates a new virtual environment located in a directory called `venv` and
 ensures that the virtual environment uses Python 3.6.
 
+If you want to delete the virtual environment for some reason, simply delete
+the `venv` directory, e.g. by running `rm -rf venv`.
+
+#### Activating the virtual environment
+
 Activate the virtual environment with:
 
 ```
@@ -46,8 +51,16 @@ source venv/bin/activate
 You should see `(venv)` appear to the left of your shell prompt, indicating
 that the virtual environment is active.
 
-Now, if you run `python --version`, you should see some variant of `Python
-3.6.x`. And if you run `which python`, you should see a path that ends with
+You must always run this command before doing any work from within the virtual
+environment.
+
+#### Checking python and pip
+
+After activating the virtual environment for the first time, check that
+`python` and `pip` are installed correctly.
+
+If you run `python --version`, you should see some variant of `Python 3.6.x`.
+And if you run `which python`, you should see a path that ends with
 `venv/bin/python`. This means that if you run the `python` command from within
 the active virtual environment, it will use the virtual environment's Python
 interpreter.
@@ -59,7 +72,21 @@ environment, it will use the virtual environment's version of `pip` and will
 install, uninstall, and otherwise manage packages within the virtual
 environment, rather than modifying your machine's global Python environment.
 
-In order to exit the virtual environment, run `deactivate` from within the
-active virtual environment.
+#### Deactivating the virtual environment
 
-TODO: alias
+To deactivate the virtual environment, run `deactivate` or simply close your
+terminal.
+
+#### Aliasing the activation command
+
+You may want to alias the `source venv/bin/activate` command to something
+shorter. For example, adding the following line to your shell's init file
+(`~/.bashrc` if you're using `bash`) aliases the activation command to `va`:
+
+```
+alias va='source venv/bin/activate'
+```
+
+Reload `~/.bashrc` by running `source ~/.bashrc`, or simply start a new
+terminal. Now you can simply run `va` from the project directory in order to
+activate the virtual environment.
