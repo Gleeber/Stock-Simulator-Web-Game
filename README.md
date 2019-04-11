@@ -97,6 +97,9 @@ activate the virtual environment.
 running `pip` commands, so that you do not accidentally modify your global
 Python environment.
 
+*Note: I'm still learning about `pip` and virtual environments. I do not claim
+that these are the best practices for Python dependency management.*
+
 #### Installing existing dependencies
 
 After creating the virtual environment and activating it for the first time,
