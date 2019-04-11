@@ -51,8 +51,8 @@ source venv/bin/activate
 You should see `(venv)` appear to the left of your shell prompt, indicating
 that the virtual environment is active.
 
-You must always run this command before doing any work from within the virtual
-environment.
+To deactivate the virtual environment, run `deactivate` or simply close your
+terminal.
 
 #### Checking python and pip
 
@@ -71,11 +71,6 @@ Additionally, if you run `pip --version`, you should see output that includes
 environment, it will use the virtual environment's version of `pip` and will
 install, uninstall, and otherwise manage packages within the virtual
 environment, rather than modifying your machine's global Python environment.
-
-#### Deactivating the virtual environment
-
-To deactivate the virtual environment, run `deactivate` or simply close your
-terminal.
 
 #### Aliasing the activation command
 
