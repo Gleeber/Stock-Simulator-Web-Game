@@ -6,6 +6,7 @@ from flask import Flask, render_template
 from api import apiBlueprint
 from stock import stockBlueprint
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
