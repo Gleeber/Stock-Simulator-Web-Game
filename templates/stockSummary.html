@@ -7,7 +7,7 @@
 <script>
     var tickerSymbol = '{{tickerSymbol}}';
     var request = new XMLHttpRequest();
-    var url = 'http://127.0.0.1:5000/api/latest?ticker=' + tickerSymbol;
+    var url = 'http://127.0.0.1:5000/api/latest/' + tickerSymbol;
     request.open('GET', url, false);
     request.send();
     var summaryBlock = document.getElementById('stockSummary');
