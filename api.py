@@ -44,7 +44,6 @@ def searchStocks():
 def addStockToPortfolio(ticker):
     portfolio = deserialize(session['portfolio'])
     portfolio.buyStock(ticker)
-    # FIXME serialize undefined
     session['portfolio'] = serialize(portfolio)
     return 'OK'
 
