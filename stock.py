@@ -11,7 +11,7 @@ class Stock:
         return f"${self.ticker}: ${self.currentPrice}"
 
 
-stockBlueprint = Blueprint('stock', __name__, url_prefix = '/stock')
+stockBlueprint = Blueprint('stock', __name__, url_prefix='/stock')
 
 
 @stockBlueprint.route('/<tickerSymbol>')
