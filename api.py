@@ -4,7 +4,7 @@
 import json
 import requests
 from typing import cast
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, session
 from portfolio import deserialize, serialize
 from custom_types import JSONDict
 
@@ -113,4 +113,3 @@ def searchStockData(keyword: str, dataType: str = 'json') -> JSONDict:
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
-
