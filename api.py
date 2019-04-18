@@ -18,30 +18,26 @@ with open('config.json') as configFile:
     apiURL = configJSON['apiURL']
 
 
-@apiBlueprint.route('/intraday', methods=['GET'])
-def intraday():
-    ticker = request.args['ticker']
+@apiBlueprint.route('/intraday/<ticker>', methods=['GET'])
+def intraday(ticker):
     intradayStockData = getIntradayStockData(ticker)
     return jsonify(intradayStockData)
 
 
-@apiBlueprint.route('/daily', methods=['GET'])
-def daily():
-    ticker = request.args['ticker']
+@apiBlueprint.route('/daily/<ticker>', methods=['GET'])
+def daily(ticker):
     dailyStockData = getDailyStockData(ticker)
     return jsonify(dailyStockData)
 
 
-@apiBlueprint.route('/latest', methods=['GET'])
-def latest():
-    ticker = request.args['ticker']
+@apiBlueprint.route('/latest/<ticker>', methods=['GET'])
+def latest(ticker):
     latestStockData = getLatestStockData(ticker)
     return jsonify(latestStockData)
 
 
-@apiBlueprint.route('/search', methods=['GET'])
-def searchStocks():
-    keyword = request.args['keyword']
+@apiBlueprint.route('/search/<keyword>', methods=['GET'])
+def searchStocks(keyword):
     searchResults = searchStockData(keyword)
     return jsonify(searchResults)
 
@@ -118,7 +114,3 @@ def searchStockData(keyword: str, dataType: str = 'json') -> JSONDict:
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
 
-
-if __name__ == '__main__':
-    data = getDailyStockData('MSFT')
-    print(json.dumps(data, indent=2))
