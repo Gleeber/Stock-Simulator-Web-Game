@@ -7,7 +7,7 @@ Interactive web app where users can simulate stock portfolios using real-world f
 *Note: These steps should work on Debian/Ubuntu systems. I'm not sure about
 other operating systems.*
 
-### Getting started
+### Install tools
 
 Make sure you have `pip` installed. On Debian systems, you can install the
 `python3-pip` package.
@@ -18,6 +18,12 @@ virtual environments:
 ```
 pip3 install virtualenv
 ```
+
+### Create config file
+
+Copy `config-template.json` to `config.json`. Edit `config.json` to add your
+Alpha Vantage API key. (You can get a free API key
+[here](https://www.alphavantage.co/support/#api-key).)
 
 ### Virtual environments
 
