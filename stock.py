@@ -7,7 +7,7 @@ class Stock:
         self.currentPrice = price
         self.priceHistory = history
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"${self.ticker}: ${self.currentPrice}"
 
 

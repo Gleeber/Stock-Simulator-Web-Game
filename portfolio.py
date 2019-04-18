@@ -1,5 +1,10 @@
+from typing import Tuple
+
+from custom_types import JSONDict
+
+
 class Portfolio():
-    def __init__(self, cash: float, stocks: dict):
+    def __init__(self, cash: float, stocks: JSONDict) -> None:
         self.cash = cash
         self.stocks = stocks
 
@@ -8,7 +13,7 @@ class Portfolio():
         string += str(self.stocks)
         return string
 
-    def buyStock(self, ticker: str):
+    def buyStock(self, ticker: str) -> None:
         stockData, stockPrice = self.parseAPIData(ticker)
         if ticker not in self.stocks:
             self.stocks[ticker] = {'count': 1, 'data': stockData}
@@ -16,7 +21,7 @@ class Portfolio():
             self.stocks[ticker]['count'] += 1
         self.cash -= stockPrice
 
-    def sellStock(self, ticker: str):
+    def sellStock(self, ticker: str) -> None:
         stockData, stockPrice = self.parseAPIData(ticker)
         if ticker not in self.stocks:
             raise Exception('No matching stocks in portfolio')
@@ -26,7 +31,7 @@ class Portfolio():
             self.cash += stockPrice
             self.stocks[ticker]['count'] -= 1
 
-    def parseAPIData(self, ticker):
+    def parseAPIData(self, ticker: str) -> Tuple[JSONDict, float]:
         from api import getLatestStockData
         stockData = getLatestStockData(ticker)
         stockPrice = float(stockData['Global Quote']['05. price'])

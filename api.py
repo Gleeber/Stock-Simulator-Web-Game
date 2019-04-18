@@ -3,8 +3,10 @@
 
 import json
 import requests
+from typing import cast
 from flask import Blueprint, jsonify, request, session
 from portfolio import deserialize, serialize
+from custom_types import JSONDict
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -62,7 +64,14 @@ def sellStock(ticker):
         raise e
 
 
-def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
+# We must cast return values to JSONDict because requests.Response.json does
+# not have a return type annotation. This does not actually check that the
+# values satisfy the JSONDict type definition, it just stops mypy from
+# complaining.
+
+
+def getIntradayStockData(
+        stockSymbol: str, dataType: str = 'json') -> JSONDict:
     paramsJSON = {
         'function': 'TIME_SERIES_INTRADAY',
         'symbol': stockSymbol,
@@ -72,10 +81,10 @@ def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
         'apikey': apiKey
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
-    return dataRequestResponse
+    return cast(JSONDict, dataRequestResponse)
 
 
-def getDailyStockData(stockSymbol: str, dataType: str = 'json'):
+def getDailyStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
     paramsJSON = {
         'function': 'TIME_SERIES_DAILY',
         'symbol': stockSymbol,
@@ -84,10 +93,10 @@ def getDailyStockData(stockSymbol: str, dataType: str = 'json'):
         'apikey': apiKey
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
-    return dataRequestResponse
+    return cast(JSONDict, dataRequestResponse)
 
 
-def getLatestStockData(stockSymbol: str, dataType: str = 'json'):
+def getLatestStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
     paramsJSON = {
         'function': 'GLOBAL_QUOTE',
         'symbol': stockSymbol,
@@ -95,10 +104,10 @@ def getLatestStockData(stockSymbol: str, dataType: str = 'json'):
         'apikey': apiKey
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
-    return dataRequestResponse
+    return cast(JSONDict, dataRequestResponse)
 
 
-def searchStockData(keyword: str, dataType: str = 'json'):
+def searchStockData(keyword: str, dataType: str = 'json') -> JSONDict:
     paramsJSON = {
         'function': 'SYMBOL_SEARCH',
         'keywords': keyword,
@@ -106,7 +115,7 @@ def searchStockData(keyword: str, dataType: str = 'json'):
         'apikey': apiKey
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
-    return dataRequestResponse
+    return cast(JSONDict, dataRequestResponse)
 
 
 if __name__ == '__main__':
