@@ -2,9 +2,10 @@
 # Stock Simulator
 # Main executable for stock trading web app
 
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from api import apiBlueprint
 from stock import stockBlueprint
+from portfolio import Portfolio
 
 
 def create_app():
@@ -16,5 +17,8 @@ def create_app():
     app.register_blueprint(stockBlueprint)
     @app.route('/')
     def index():
+        if 'portfolio' not in session:
+            session['portfolio'] = Portfolio(500, {}).serialize()
+        print(session['portfolio'])
         return render_template('index.html')
     return app
