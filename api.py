@@ -3,7 +3,7 @@
 
 import requests, json
 from flask import Blueprint, jsonify, request, session
-from portfolio import deserialize
+from portfolio import deserialize, serialize
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -46,6 +46,7 @@ def addStockToPortfolio(ticker):
     portfolio.buyStock(ticker)
     # FIXME serialize undefined
     session['portfolio'] = serialize(portfolio)
+    return 'OK'
 
 def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
     paramsJSON = {

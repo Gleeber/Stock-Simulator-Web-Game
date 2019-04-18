@@ -13,7 +13,8 @@ class Portfolio():
     def buyStock(self, ticker: str):
         from api import getLatestStockData
         stockData = getLatestStockData(ticker)
-        stockPrice = float(stockData['05. price'])
+        print(stockData)
+        stockPrice = float(stockData['Global Quote']['05. price'])
         if ticker not in self.stocks:
             self.stocks[ticker] = {'count' : 1, 'data' : stockData}
         else:
@@ -21,11 +22,11 @@ class Portfolio():
         self.cash -= stockPrice
         print(self)
 
-    def serialize(self):
-        return {
-                'cash' : self.cash,
-                'stocks' : self.stocks
-                }
+def serialize(portfolio):
+    return {
+            'cash' : portfolio.cash,
+            'stocks' : portfolio.stocks
+            }
 
 def deserialize(portfolioJSON):
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])
