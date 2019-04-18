@@ -39,7 +39,8 @@ class Portfolio():
 
 
 def serialize(portfolio):
-    return {'cash' : portfolio.cash, 'stocks' : portfolio.stocks}
+    return {'cash': portfolio.cash, 'stocks': portfolio.stocks}
+
 
 def deserialize(portfolioJSON):
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])
