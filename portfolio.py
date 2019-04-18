@@ -11,22 +11,31 @@ class Portfolio():
         return string
 
     def buyStock(self, ticker: str):
-        from api import getLatestStockData
-        stockData = getLatestStockData(ticker)
-        print(stockData)
-        stockPrice = float(stockData['Global Quote']['05. price'])
+        stockData, stockPrice = self.parseAPIData(ticker)
         if ticker not in self.stocks:
             self.stocks[ticker] = {'count' : 1, 'data' : stockData}
         else:
             self.stocks[ticker]['count'] += 1
         self.cash -= stockPrice
-        print(self)
+
+    def sellStock(self, ticker: str):
+        stockData, stockPrice = self.parseAPIData(ticker)
+        if ticker not in self.stocks:
+            raise Exception('No matching stocks in portfolio')
+        elif self.stocks[ticker]['count'] < 1:
+            raise Exception('No matching stocks in portfolio')
+        else:
+            self.cash += stockPrice
+            self.stocks[ticker]['count'] -= 1
+
+    def parseAPIData(self, ticker):
+        from api import getLatestStockData
+        stockData = getLatestStockData(ticker)
+        stockPrice = float(stockData['Global Quote']['05. price'])
+        return stockData, stockPrice
 
 def serialize(portfolio):
-    return {
-            'cash' : portfolio.cash,
-            'stocks' : portfolio.stocks
-            }
+    return {'cash' : portfolio.cash, 'stocks' : portfolio.stocks}
 
 def deserialize(portfolioJSON):
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])

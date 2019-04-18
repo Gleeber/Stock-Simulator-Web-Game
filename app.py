@@ -19,6 +19,5 @@ def create_app():
     def index():
         if 'portfolio' not in session:
             session['portfolio'] = Portfolio(500, {}).serialize()
-        print(session['portfolio'])
         return render_template('index.html')
     return app

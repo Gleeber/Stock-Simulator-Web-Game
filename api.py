@@ -41,11 +41,21 @@ def searchStocks():
     return jsonify(searchResults)
 
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
-def addStockToPortfolio(ticker):
+def buyStock(ticker):
     portfolio = deserialize(session['portfolio'])
     portfolio.buyStock(ticker)
     session['portfolio'] = serialize(portfolio)
     return 'OK'
+
+@apiBlueprint.route('/sell/<ticker>', methods=['POST'])
+def sellStock(ticker):
+    portfolio = deserialize(session['portfolio'])
+    try:
+        portfolio.sellStock(ticker)
+        session['portfolio'] = serialize(portfolio)
+        return 'OK'
+    except Exception as e:
+        raise e
 
 def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
     paramsJSON = {
