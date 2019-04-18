@@ -1,4 +1,16 @@
-<!DOCTYPE html>
-<html lang = en>
+{% extends 'base.html' %}
+{% block body %}
+<div class='container'>
     <h1> {{tickerSymbol}} </h1>
-</html>
+    <p id='stockSummary'><p>
+</div>
+<script>
+    var tickerSymbol = '{{tickerSymbol}}';
+    var request = new XMLHttpRequest();
+    var url = 'http://127.0.0.1:5000/api/latest?ticker=' + tickerSymbol;
+    request.open('GET', url, false);
+    request.send();
+    var summaryBlock = document.getElementById('stockSummary');
+    summaryBlock.innerHTML = request.responseText;
+</script>
+{% endblock %}
