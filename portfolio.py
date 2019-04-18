@@ -38,9 +38,9 @@ class Portfolio():
         return stockData, stockPrice
 
 
-def serialize(portfolio):
+def serialize(portfolio: Portfolio) -> JSONDict:
     return {'cash': portfolio.cash, 'stocks': portfolio.stocks}
 
 
-def deserialize(portfolioJSON):
+def deserialize(portfolioJSON: JSONDict) -> Portfolio:
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])

@@ -5,7 +5,7 @@
 from flask import Flask, render_template, session
 from api import apiBlueprint
 from stock import stockBlueprint
-from portfolio import Portfolio
+from portfolio import Portfolio, serialize
 
 
 def create_app():
@@ -17,7 +17,7 @@ def create_app():
     @app.route('/')
     def index():
         if 'portfolio' not in session:
-            session['portfolio'] = Portfolio(500, {}).serialize()
+            session['portfolio'] = serialize(Portfolio(500, {}))
         return render_template('index.html')
 
     return app

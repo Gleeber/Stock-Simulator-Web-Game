@@ -19,28 +19,28 @@ print(apiKey)
 
 @apiBlueprint.route('/intraday', methods=['GET'])
 def intraday():
-    ticker = request.args.get('ticker')
+    ticker = request.args['ticker']
     intradayStockData = getIntradayStockData(ticker)
     return jsonify(intradayStockData)
 
 
 @apiBlueprint.route('/daily', methods=['GET'])
 def daily():
-    ticker = request.args.get('ticker')
+    ticker = request.args['ticker']
     dailyStockData = getDailyStockData(ticker)
     return jsonify(dailyStockData)
 
 
 @apiBlueprint.route('/latest', methods=['GET'])
 def latest():
-    ticker = request.args.get('ticker')
+    ticker = request.args['ticker']
     latestStockData = getLatestStockData(ticker)
     return jsonify(latestStockData)
 
 
 @apiBlueprint.route('/search', methods=['GET'])
 def searchStocks():
-    keyword = request.args.get('keyword')
+    keyword = request.args['keyword']
     searchResults = searchStockData(keyword)
     return jsonify(searchResults)
 
