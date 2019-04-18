@@ -1,5 +1,3 @@
-import json
-
 class Portfolio():
     def __init__(self, cash: float, stocks: dict):
         self.cash = cash
@@ -16,17 +14,19 @@ class Portfolio():
         print(stockData)
         stockPrice = float(stockData['Global Quote']['05. price'])
         if ticker not in self.stocks:
-            self.stocks[ticker] = {'count' : 1, 'data' : stockData}
+            self.stocks[ticker] = {'count': 1, 'data': stockData}
         else:
             self.stocks[ticker]['count'] += 1
         self.cash -= stockPrice
         print(self)
 
+
 def serialize(portfolio):
     return {
-            'cash' : portfolio.cash,
-            'stocks' : portfolio.stocks
+            'cash': portfolio.cash,
+            'stocks': portfolio.stocks
             }
+
 
 def deserialize(portfolioJSON):
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])

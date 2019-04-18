@@ -1,7 +1,8 @@
 # api.py
 # Defines several functions for retrieving financial data from AlphaVantage API
 
-import requests, json
+import json
+import requests
 from flask import Blueprint, jsonify, request, session
 from portfolio import deserialize, serialize
 
@@ -40,12 +41,14 @@ def searchStocks():
     searchResults = searchStockData(keyword)
     return jsonify(searchResults)
 
+
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
 def addStockToPortfolio(ticker):
     portfolio = deserialize(session['portfolio'])
     portfolio.buyStock(ticker)
     session['portfolio'] = serialize(portfolio)
     return 'OK'
+
 
 def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
     paramsJSON = {
