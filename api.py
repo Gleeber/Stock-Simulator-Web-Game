@@ -44,6 +44,7 @@ def searchStocks():
 def addStockToPortfolio(ticker):
     portfolio = deserialize(session['portfolio'])
     portfolio.buyStock(ticker)
+    # FIXME serialize undefined
     session['portfolio'] = serialize(portfolio)
 
 def getIntradayStockData(stockSymbol: str, dataType: str = 'json'):
