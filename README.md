@@ -19,12 +19,6 @@ virtual environments:
 pip3 install virtualenv
 ```
 
-### Create config file
-
-Copy `config-template.json` to `config.json`. Edit `config.json` to add your
-Alpha Vantage API key. (You can get a free API key
-[here](https://www.alphavantage.co/support/#api-key).)
-
 ### Virtual environments
 
 A virtual environment is an isolated Python environment that contains its own

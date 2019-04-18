@@ -12,9 +12,10 @@ apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
 with open('config.json') as configFile:
     configJSON = json.load(configFile)
+    # It seems that the Alpha Vantage API key can actually be any non-empty
+    # string.
     apiKey = configJSON['apiKey']
     apiURL = configJSON['apiURL']
-print(apiKey)
 
 
 @apiBlueprint.route('/intraday', methods=['GET'])
