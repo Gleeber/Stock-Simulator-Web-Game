@@ -34,15 +34,7 @@ class Portfolio():
 
 
 def serialize(portfolio):
-<<<<<<< HEAD
     return {'cash' : portfolio.cash, 'stocks' : portfolio.stocks}
-=======
-    return {
-            'cash': portfolio.cash,
-            'stocks': portfolio.stocks
-            }
->>>>>>> 2906adb0c42cdfa214e6c93d7a517c08d3e40b4e
-
 
 def deserialize(portfolioJSON):
     return Portfolio(portfolioJSON['cash'], portfolioJSON['stocks'])
