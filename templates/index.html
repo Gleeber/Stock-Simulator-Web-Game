@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<script>
+    function buyMSFT(){
+        var request = new XMLHttpRequest();
+        var url = "http://127.0.0.1:5000/api/buy/MSFT";
+        request.open('POST', url);
+        request.send();
+        request.onreadstatechange = (e) => {
+            console.log(request.responseText);
+        }
+    }
+</script>
 <div class="container">
-    <h1>Welcome to Stock Trader!</h1>
+    <h1>Portfolio:</h1>
+    <p>{{session['portfolio']}}</p>
+    <button onclick="buyMSFT();">Buy Microsoft</button>
 </div>
 {% endblock %}
