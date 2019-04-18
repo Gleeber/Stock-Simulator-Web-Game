@@ -105,5 +105,5 @@ def searchStockData(keyword: str, dataType: str = 'json'):
 
 
 if __name__ == '__main__':
-    response = getDailyStockData('MSFT')
-    print(json.dumps(response.json(), indent=2))
+    data = getDailyStockData('MSFT')
+    print(json.dumps(data, indent=2))
