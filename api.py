@@ -47,7 +47,7 @@ def buyStock(ticker):
     portfolio = deserialize(session['portfolio'])
     portfolio.buyStock(ticker)
     session['portfolio'] = serialize(portfolio)
-    return 'OK'
+    return str(session['portfolio'])
 
 
 @apiBlueprint.route('/sell/<ticker>', methods=['POST'])
@@ -56,7 +56,7 @@ def sellStock(ticker):
     try:
         portfolio.sellStock(ticker)
         session['portfolio'] = serialize(portfolio)
-        return 'OK'
+        return str(session['portfolio'])
     except Exception as e:
         raise e
 
