@@ -3,7 +3,7 @@ from typing import Tuple
 from custom_types import JSONDict
 
 
-class Portfolio():
+class Portfolio:
     def __init__(self, cash: float, stocks: JSONDict) -> None:
         self.cash = cash
         self.stocks = stocks
