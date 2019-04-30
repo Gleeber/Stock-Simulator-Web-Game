@@ -14,7 +14,6 @@ def create_app():
     app.config.from_mapping(SECRET_KEY='secretkey')
     app.register_blueprint(apiBlueprint)
     app.register_blueprint(stockBlueprint)
-    app.run(host="0.0.0.0")
 
     @app.route('/')
     def index():

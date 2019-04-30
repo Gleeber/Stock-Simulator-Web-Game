@@ -13,11 +13,13 @@ dailyPriceHistoryRequest.onreadystatechange = function() {
     var dailyPriceHistory = this.response;
     var graphElement = document.getElementById('priceHistoryGraph');
     var config = {
-        type: 'line',
-        data: [1,2,3,4,5],
-        options: {}
-    }
-    new Chart(graphElement, config);
+        type: 'bar',
+        data: [1,2,3],
+        options: {
+            responsive: true
+        }
+    };
+    var chart = new Chart(graphElement, config);
 }
 dailyPriceHistoryRequest.open('GET', dailyPriceURL, true);
 dailyPriceHistoryRequest.send();
