@@ -1,16 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class='container'>
-    <h1> {{tickerSymbol}} </h1>
+    <h1 id='tickerHeader'>{{tickerSymbol}}</h1>
     <p id='stockSummary'><p>
+    <canvas id='priceHistoryGraph'></canvas>
 </div>
-<script>
-    var tickerSymbol = '{{tickerSymbol}}';
-    var request = new XMLHttpRequest();
-    var url = 'http://127.0.0.1:5000/api/latest/' + tickerSymbol;
-    request.open('GET', url, false);
-    request.send();
-    var summaryBlock = document.getElementById('stockSummary');
-    summaryBlock.innerHTML = request.responseText;
-</script>
+<script src='{{url_for("static", filename="stockSummary.js")}}'></script>
 {% endblock %}
