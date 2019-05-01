@@ -24,9 +24,9 @@ class Portfolio:
     def sellStock(self, ticker: str) -> None:
         _, stockPrice = self.parseAPIData(ticker)
         if ticker not in self.stocks:
-            raise Exception('No matching stocks in portfolio')
+            pass
         elif self.stocks[ticker]['count'] < 1:
-            raise Exception('No matching stocks in portfolio')
+            pass
         else:
             self.cash += stockPrice
             self.stocks[ticker]['count'] -= 1
@@ -40,6 +40,7 @@ class Portfolio:
     def parseAPIData(self, ticker: str) -> Tuple[JSONDict, float]:
         from api import getLatestStockData
         stockData = getLatestStockData(ticker)
+        print(stockData)
         stockPrice = float(stockData['Global Quote']['05. price'])
         return stockData, stockPrice
 

@@ -8,7 +8,7 @@
         request.onreadystatechange = function() {
             document.getElementById('portfolio').innerHTML = this.responseText;
         };
-        request.open('POST', url, true);
+        request.open('POST', url, false);
         request.send();
     }
     
@@ -19,7 +19,7 @@
             console.log(this.responseText)
             document.getElementById('portfolio').innerHTML = this.responseText;
         };
-        request.open('POST', url, true);
+        request.open('POST', url, false);
         request.send();
     }
 </script>
