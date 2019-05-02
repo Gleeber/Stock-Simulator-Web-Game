@@ -1,32 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<script>
-    function buyMSFT(){
-        var request = new XMLHttpRequest();
-        var url = "http://127.0.0.1:5000/api/buy/MSFT";
-        request.onreadystatechange = function() {
-            document.getElementById('portfolio').innerHTML = this.responseText;
-        };
-        request.open('POST', url, false);
-        request.send();
-    }
-    
-    function sellMSFT(){
-        var request = new XMLHttpRequest();
-        var url = "http://127.0.0.1:5000/api/sell/MSFT";
-        request.onreadystatechange = function() {
-            console.log(this.responseText)
-            document.getElementById('portfolio').innerHTML = this.responseText;
-        };
-        request.open('POST', url, false);
-        request.send();
-    }
-</script>
 <div class="container">
     <h1>Portfolio:</h1>
+    <p>Total Value:</p>
+    <p id='totalValue'></p>
     <p><span id='portfolio'>{{session['portfolio']}}</span></p>
     <button onclick="buyMSFT();">Buy Microsoft</button>
     <button onclick="sellMSFT();">Sell Microsoft</button>
 </div>
+<script type='text/javascript' src='{{url_for("static", filename="index.js")}}'></script>
 {% endblock %}
