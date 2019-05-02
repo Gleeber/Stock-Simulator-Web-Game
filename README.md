@@ -126,7 +126,7 @@ In order to remove a dependency that is no longer needed, run `pip uninstall
 PACKAGE`, remove the package's line from `requirements.txt`, and commit the
 changes to `requirements.txt`.
 
-### Docker!
+### Docker! (Currently under development, check back later)
 
 As of 4/26/19, our web-app runs on Docker! After installing Docker ([Mac](https://www.docker.com/products/docker#/mac), [Windows](https://www.docker.com/products/docker#/windows), or [Linux](https://www.docker.com/products/docker#/linux)), run 
 ```
