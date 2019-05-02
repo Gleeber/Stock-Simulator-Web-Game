@@ -1,6 +1,8 @@
+import json
 from typing import Tuple, List
-import stock, json
-from custom_types import JSONDict
+
+from . import stock
+from .custom_types import JSONDict
 
 class Portfolio():
     def __init__(self, cash: float, stocks: JSONDict) -> None:
@@ -42,13 +44,13 @@ class Portfolio():
         return cashSum
 
     def parseLatestPrice(self, ticker: str) -> float:
-        from api import getLatestStockData
+        from .api import getLatestStockData
         stockData = getLatestStockData(ticker)
         stockPrice = float(stockData['Global Quote']['05. price'])
         return stockPrice
 
     def parsePriceHistory(self, ticker: str) -> List[Tuple[str, float]]:
-        from api import getDailyStockData
+        from .api import getDailyStockData
         stockData = getDailyStockData(ticker)['Time Series (Daily)']
         historyList = []
         for day in stockData.keys():

@@ -2,11 +2,13 @@
 # Stock Simulator
 # Main executable for stock trading web app
 
-from flask import Flask, render_template, session
-from api import apiBlueprint, searchStockData
-from stock import stockBlueprint
-from portfolio import Portfolio, serialize
 import json
+
+from flask import Flask, render_template, session
+
+from .api import apiBlueprint, searchStockData
+from .portfolio import Portfolio, serialize
+from .stock import stockBlueprint
 
 
 def create_app():
