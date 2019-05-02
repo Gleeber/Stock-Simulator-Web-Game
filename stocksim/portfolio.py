@@ -1,7 +1,8 @@
-from typing import Tuple
-import stock
-from custom_types import JSONDict
+import json
+from typing import Tuple, List
 
+from . import stock
+from .custom_types import JSONDict
 
 class Portfolio():
     def __init__(self, cash: float, stocks: JSONDict) -> None:
@@ -14,18 +15,19 @@ class Portfolio():
         return string
 
     def buyStock(self, ticker: str) -> None:
-        _, stockPrice = self.parseAPIData(ticker)
+        stockPrice = self.parseLatestPrice(ticker)
+        priceHistory = self.parsePriceHistory(ticker)
         for stockItem in self.stocks:
             if stockItem.ticker == ticker:
                 stockItem.count += 1
                 stockItem.currentPrice = stockPrice
                 self.cash -= stockPrice
                 return
-        self.stocks.append(stock.Stock(ticker, stockPrice, 1))
+        self.stocks.append(stock.Stock(ticker, stockPrice, 1, priceHistory))
         self.cash -= stockPrice
 
     def sellStock(self, ticker: str) -> None:
-        _, stockPrice = self.parseAPIData(ticker)
+        stockPrice = self.parseLatestPrice(ticker)
         for stockItem in self.stocks:
             if stockItem.ticker == ticker:
                 stockItem.count -= 1
@@ -37,17 +39,24 @@ class Portfolio():
     def getTotalValue(self) -> float:
         cashSum = 0
         for stockItem in self.stocks:
-            print('\n', stockItem.currentPrice, stockItem.count, cashSum, '\n')
             cashSum += stockItem.currentPrice
             cashSum *= stockItem.count
         return cashSum
 
-    def parseAPIData(self, ticker: str) -> Tuple[JSONDict, float]:
-        from api import getLatestStockData
+    def parseLatestPrice(self, ticker: str) -> float:
+        from .api import getLatestStockData
         stockData = getLatestStockData(ticker)
         stockPrice = float(stockData['Global Quote']['05. price'])
-        return stockData, stockPrice
+        return stockPrice
 
+    def parsePriceHistory(self, ticker: str) -> List[Tuple[str, float]]:
+        from .api import getDailyStockData
+        stockData = getDailyStockData(ticker)['Time Series (Daily)']
+        historyList = []
+        for day in stockData.keys():
+            historyList.append((day, stockData[day]['2. high']))
+        print('\n', historyList[0:5], '\n')
+        return historyList
 
 def serialize(portfolio: Portfolio) -> JSONDict:
     return {'cash': portfolio.cash, 

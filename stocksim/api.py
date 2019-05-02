@@ -2,11 +2,13 @@
 # Defines several functions for retrieving financial data from AlphaVantage API
 
 import json
-import requests
 from typing import cast
+
 from flask import Blueprint, jsonify, session
-from portfolio import deserialize, serialize
-from custom_types import JSONDict
+import requests
+
+from .custom_types import JSONDict
+from .portfolio import deserialize, serialize
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 

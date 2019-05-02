@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
 from typing import List, Tuple
-from custom_types import JSONDict
+
+from flask import Blueprint, render_template
+
+from .custom_types import JSONDict
 
 class Stock():
     def __init__(self, ticker: str, price: float, count: int, history: List[Tuple[str, float]]=[]):
