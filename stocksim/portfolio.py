@@ -5,7 +5,7 @@ from .custom_types import JSONDict
 
 
 class Portfolio():
-    def __init__(self, cash: float, stocks: JSONDict) -> None:
+    def __init__(self, cash: float, stocks: List[stock.Stock]) -> None:
         self.cash = cash
         self.stocks = stocks
 
@@ -37,7 +37,7 @@ class Portfolio():
                 break
 
     def getTotalValue(self) -> float:
-        cashSum = 0
+        cashSum = 0.
         for stockItem in self.stocks:
             cashSum += stockItem.currentPrice
             cashSum *= stockItem.count
