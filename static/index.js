@@ -29,3 +29,4 @@ function updateTotalValue(){
     request.open('GET', url, false);
     request.send();
 }
+updateTotalValue();
