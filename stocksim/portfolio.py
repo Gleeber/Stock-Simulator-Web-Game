@@ -1,8 +1,8 @@
-import json
 from typing import Tuple, List
 
 from . import stock
 from .custom_types import JSONDict
+
 
 class Portfolio():
     def __init__(self, cash: float, stocks: JSONDict) -> None:
@@ -58,10 +58,14 @@ class Portfolio():
         print('\n', historyList[0:5], '\n')
         return historyList
 
+
 def serialize(portfolio: Portfolio) -> JSONDict:
-    return {'cash': portfolio.cash, 
+    return {'cash': portfolio.cash,
             'stocks': [stock.serialize(item) for item in portfolio.stocks]}
 
 
 def deserialize(portfolioJSON: JSONDict) -> Portfolio:
-    return Portfolio(portfolioJSON['cash'], [stock.deserialize(item) for item in portfolioJSON['stocks']])
+    return Portfolio(
+        portfolioJSON['cash'],
+        [stock.deserialize(item) for item in portfolioJSON['stocks']]
+    )
