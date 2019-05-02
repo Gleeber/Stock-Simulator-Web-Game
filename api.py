@@ -61,6 +61,13 @@ def sellStock(ticker):
         raise e
 
 
+@apiBlueprint.route('/totalValue', methods=['GET'])
+def getTotalPortfolioValue():
+    portfolio = deserialize(session['portfolio'])
+    totalValue = portfolio.getTotalValue()
+    return jsonify(totalValue)
+
+
 # We must cast return values to JSONDict because requests.Response.json does
 # not have a return type annotation. This does not actually check that the
 # values satisfy the JSONDict type definition, it just stops mypy from
