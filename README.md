@@ -134,6 +134,6 @@ docker pull dgpalmieri/stock-simulator
 ```
 and then
 ```
-docker build -p 8888:5000 dgpalmieri/stock-simulator
+docker run -p 8888:5000 dgpalmieri/stock-simulator
 ```
-Now, it should say somthing along the lines of "This app is running". If you open a browser and go to localhost:8888, you should see the wonderfully feature-full Stock Simulator Web App in its full glory. 
+Now, it should say somthing along the lines of "This app is running". If you open a browser and go to 127.0.0.1:8888, you should see the wonderfully feature-full Stock Simulator Web App in its full glory. 
