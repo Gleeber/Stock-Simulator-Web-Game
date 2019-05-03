@@ -14,6 +14,8 @@ class Stock():
             name: str = "",
             region: str = "",
             currency: str = "",
+            # FIXME don't use [] as default value (will be shared among Stock
+            # objects)
             history: List[Tuple[str, float]] = []):
         self.ticker = ticker
         self.name = name

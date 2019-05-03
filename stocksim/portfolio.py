@@ -33,7 +33,7 @@ class Portfolio():
                     stockItem.currentPrice = stockPrice
                     self.cash -= stockPrice
         if not foundStock:
-            self.stocks.append(stock.Stock(ticker, stockPrice, 1, []))
+            self.stocks.append(stock.Stock(ticker, stockPrice, 1, history=[]))
             self.cash -= stockPrice
 
     def sellStock(self, ticker: str) -> None:
