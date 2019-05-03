@@ -20,6 +20,9 @@ function updateLatestPrice(){
                 document.getElementById('stockChange').innerHTML =
                     stockSummary['10. change percent'];
             }
+            else{
+                alert("Rate limit exceeded - try to refresh in about 30 seconds.");
+            }
         }
     }
     latestPriceRequest.open('GET', latestPriceURL, true);
@@ -35,6 +38,7 @@ function graphPriceHistory(){
         if(dailyPriceHistoryRequest.readyState === 4 
             && dailyPriceHistoryRequest.status === 200){
             var dailyPriceHistory = dailyPriceHistoryRequest.response;
+            console.log(dailyPriceHistory);
             if (dailyPriceHistory.Note === undefined){
                 var prices = [];
                 var dates = [];
@@ -52,7 +56,8 @@ function graphPriceHistory(){
                         datasets: [{
                             label: "USD",
                             data: prices,
-                            fill: true,
+                            fill: false,
+                            backgroundColor: 'rgba(40, 167, 69, 1)' 
                         }]
                     },
                     options: {
@@ -60,6 +65,9 @@ function graphPriceHistory(){
                     }
                 };
                 new Chart(graphElement, config);
+            }
+            else{
+                alert("Rate limit exceeded - try to refresh in about 30 seconds.");
             }
         }
     }
