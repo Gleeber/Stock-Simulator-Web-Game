@@ -12,10 +12,6 @@ from .custom_types import JSONDict
 from .errors import APICallLimitError
 from .portfolio import deserialize, serialize
 
-CALL_LIMIT_MESSAGE = (
-    "Slow down there, speed racer! You're making too many requests. "
-    "Please wait about 30 seconds and try again."
-)
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -54,10 +50,6 @@ def latest(ticker):
 def searchStocks(keyword):
     searchResults = searchStockData(keyword)
     return jsonify(searchResults)
-
-
-# FIXME we no longer display CALL_LIMIT_MESSAGE to the user because we don't
-# display the responses sent back by buyStock and sellStock
 
 
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
