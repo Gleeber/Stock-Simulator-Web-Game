@@ -23,7 +23,7 @@ class Portfolio():
                 stockItem.currentPrice = stockPrice
                 self.cash -= stockPrice
                 return
-        self.stocks.append(stock.Stock(ticker, stockPrice, 1, priceHistory))
+        self.stocks.append(stock.Stock(ticker, stockPrice, 1, []))
         self.cash -= stockPrice
 
     def sellStock(self, ticker: str) -> None:
@@ -49,13 +49,14 @@ class Portfolio():
         stockPrice = float(stockData['Global Quote']['05. price'])
         return stockPrice
 
+    # Beware: Price history too large to store in session cookie.
     def parsePriceHistory(self, ticker: str) -> List[Tuple[str, float]]:
         from .api import getDailyStockData
-        stockData = getDailyStockData(ticker)['Time Series (Daily)']
+        stockData = getDailyStockData(ticker)
+        timeSeriesDaily = stockData['Time Series (Daily)']
         historyList = []
-        for day in stockData.keys():
-            historyList.append((day, stockData[day]['2. high']))
-        print('\n', historyList[0:5], '\n')
+        for day in timeSeriesDaily.keys():
+            historyList.append((day, timeSeriesDaily[day]['2. high']))
         return historyList
 
 

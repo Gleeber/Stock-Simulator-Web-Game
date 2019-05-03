@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
+{% macro stockPanel(searchResult) %}
+    <h4>{{searchResult['2. name']}} - 
+    <a href="/stock/{{searchResult['1. symbol']}}"">
+        ${{searchResult['1. symbol']}}</a>
+    </h4>
+{% endmacro %}
 {% block body %}
 <div class = "container">
     <ul>
         {% for result in searchResults['bestMatches'] %}
-        <li>{{result}}</li>
+        <li>{{stockPanel(result)}}</li>
         {% endfor %}
     </ul>
 </div>
