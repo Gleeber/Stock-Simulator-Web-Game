@@ -56,6 +56,10 @@ def searchStocks(keyword):
     return jsonify(searchResults)
 
 
+# FIXME we no longer display CALL_LIMIT_MESSAGE to the user because we don't
+# display the responses sent back by buyStock and sellStock
+
+
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
 def buyStock(ticker):
     portfolio = deserialize(session['portfolio'])
