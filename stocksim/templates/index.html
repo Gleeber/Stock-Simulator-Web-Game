@@ -6,8 +6,9 @@
     <p>Total Value:</p>
     <p id='totalValue'></p>
     <p><span id='portfolio'>{{session['portfolio']}}</span></p>
-    <button onclick="buyMSFT();">Buy Microsoft</button>
-    <button onclick="sellMSFT();">Sell Microsoft</button>
+    <button onclick="buyStock('MSFT'); updateAllUserInfo();">Buy Microsoft</button>
+    <button onclick="sellStock('MSFT'); updateAllUserInfo();">Sell Microsoft</button>
 </div>
 <script type='text/javascript' src='{{url_for("static", filename="index.js")}}'></script>
+<script type='text/javascript' src='{{url_for("static", filename="tradeStocks.js")}}'></script>
 {% endblock %}

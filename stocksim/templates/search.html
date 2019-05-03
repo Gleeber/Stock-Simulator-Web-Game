@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% macro stockPanel(searchResult) %}
-    <h4>{{searchResult['2. name']}} - 
-    <a href="/stock/{{searchResult['1. symbol']}}"">
-        ${{searchResult['1. symbol']}}</a>
-    </h4>
+    {% set tickerName = searchResult['1. symbol'] %}
+    <div class="row">
+        <li>
+        <h4>{{searchResult['2. name']}} - 
+        <a href="/stock/{{searchResult['1. symbol']}}"">
+            ${{tickerName}}</a>
+        </h4>
+        <button type="button" class="btn btn-outline-success btn-sm"
+            onclick="buyStock('{{tickerName}}');">Buy</button>
+        <button type="button" class="btn btn-outline-success btn-sm"
+            onclick="sellStock('{{tickerName}}');">Sell</button>
+        </li>
+    </div>
 {% endmacro %}
 {% block body %}
 <div class = "container">
     <ul>
         {% for result in searchResults['bestMatches'] %}
-        <li>{{stockPanel(result)}}</li>
+        {{stockPanel(result)}}
         {% endfor %}
     </ul>
 </div>
+<script type='text/javascript' src='{{url_for("static", filename="tradeStocks.js")}}'></script>
 {% endblock %}
