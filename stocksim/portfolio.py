@@ -16,15 +16,18 @@ class Portfolio():
 
     def buyStock(self, ticker: str) -> None:
         stockPrice = self.parseLatestPrice(ticker)
-        priceHistory = self.parsePriceHistory(ticker)
+        #priceHistory = self.parsePriceHistory(ticker)
+        foundStock = False
         for stockItem in self.stocks:
             if stockItem.ticker == ticker:
-                stockItem.count += 1
-                stockItem.currentPrice = stockPrice
-                self.cash -= stockPrice
-                return
-        self.stocks.append(stock.Stock(ticker, stockPrice, 1, []))
-        self.cash -= stockPrice
+                foundStock = True
+                if self.cash >= stockPrice:
+                    stockItem.count += 1
+                    stockItem.currentPrice = stockPrice
+                    self.cash -= stockPrice
+        if not foundStock:
+            self.stocks.append(stock.Stock(ticker, stockPrice, 1, []))
+            self.cash -= stockPrice
 
     def sellStock(self, ticker: str) -> None:
         stockPrice = self.parseLatestPrice(ticker)
