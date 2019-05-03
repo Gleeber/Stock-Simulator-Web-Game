@@ -2,11 +2,24 @@
 function updateLatestPrice(){
     var tickerSymbol = document.getElementById('tickerHeader').innerText;
     var latestPriceRequest = new XMLHttpRequest();
+    latestPriceRequest.responseType = 'json';
     var latestPriceURL = 'http://127.0.0.1:5000/api/latest/' + tickerSymbol;
     latestPriceRequest.onreadystatechange = function() {
-        if(dailyPriceHistoryRequest.readyState === 4 
-            && dailyPriceHistoryRequest.status === 200){
-            document.getElementById('stockSummary').innerHTML = this.responseText;
+        if(latestPriceRequest.readyState === 4 
+            && latestPriceRequest.status === 200){
+            var stockSummary = this.response;
+            if(stockSummary.Note === undefined){
+                stockSummary = stockSummary['Global Quote']
+                console.log(stockSummary)
+                document.getElementById('stockPrice').innerHTML =
+                    stockSummary['05. price'];
+                document.getElementById('stockHigh').innerHTML =
+                    stockSummary['03. high'];
+                document.getElementById('stockLow').innerHTML =
+                    stockSummary['04. low'];
+                document.getElementById('stockChange').innerHTML =
+                    stockSummary['10. change percent'];
+            }
         }
     }
     latestPriceRequest.open('GET', latestPriceURL, true);
@@ -21,8 +34,8 @@ function graphPriceHistory(){
     dailyPriceHistoryRequest.onreadystatechange = function() {
         if(dailyPriceHistoryRequest.readyState === 4 
             && dailyPriceHistoryRequest.status === 200){
-            if (dailyPriceHistoryRequest.Note === undefined){
-                var dailyPriceHistory = dailyPriceHistoryRequest.response;
+            var dailyPriceHistory = dailyPriceHistoryRequest.response;
+            if (dailyPriceHistory.Note === undefined){
                 var prices = [];
                 var dates = [];
                 Object.keys(dailyPriceHistory["Time Series (Daily)"]).forEach( key => {
