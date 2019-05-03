@@ -6,9 +6,9 @@
         <h5>Price: ${{listItem['price']}}</h5>
         <h5>Count: {{listItem['count']}}</h5>
         <button class="btn btn-outline-success btn-sm"
-            onclick="buyStock('{{ticker}}'); updateAllUserInfo();">Buy Microsoft</button>
+            onclick="buyStock('{{ticker}}'); updateAllUserInfo();">Buy ${{ticker}}</button>
         <button class="btn btn-outline-success btn-sm"
-            onclick="sellStock('{{ticker}}'); updateAllUserInfo();">Sell Microsoft</button>
+            onclick="sellStock('{{ticker}}'); updateAllUserInfo();">Sell ${{ticker}}</button>
     </li>
 {% endmacro %}
 {% block body %}
