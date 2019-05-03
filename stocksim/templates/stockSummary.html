@@ -8,6 +8,12 @@
 <div class='container'>
     <h1 id='tickerHeader'>{{tickerSymbol}}</h1>
     <p id='stockSummary'><p>
+    <button class="btn btn-outline-success btn-sm"
+        onclick="buyStock('{{tickerSymbol}}'); updateAllUserInfo();">
+        Buy ${{tickerSymbol}}</button>
+    <button class="btn btn-outline-success btn-sm"
+        onclick="sellStock('{{tickerSymbol}}'); updateAllUserInfo();">
+        Sell ${{tickerSymbol}}</button>
     <canvas id='priceHistoryGraph' height="100" width="200"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script src='{{url_for("static", filename="stockSummary.js")}}'></script>

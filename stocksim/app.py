@@ -27,6 +27,6 @@ def create_app():
     def search(ticker):
         searchResults = searchStockData(ticker)
         print(json.dumps(searchResults, indent=1))
-        return render_template('search.html', searchResults=searchResults)
+        return render_template('search.html', searchResults=searchResults, ticker=ticker)
 
     return app
