@@ -9,7 +9,13 @@ from flask import Blueprint, jsonify, session
 import requests
 
 from .custom_types import JSONDict
+from .errors import APICallLimitError
 from .portfolio import deserialize, serialize
+
+CALL_LIMIT_MESSAGE = (
+    "Slow down there, speed racer! You're making too many requests. "
+    "Please wait about 30 seconds and try again."
+)
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -53,7 +59,10 @@ def searchStocks(keyword):
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
 def buyStock(ticker):
     portfolio = deserialize(session['portfolio'])
-    portfolio.buyStock(ticker)
+    try:
+        portfolio.buyStock(ticker)
+    except APICallLimitError:
+        return CALL_LIMIT_MESSAGE
     session['portfolio'] = serialize(portfolio)
     return str(session['portfolio'])
 
@@ -63,10 +72,10 @@ def sellStock(ticker):
     portfolio = deserialize(session['portfolio'])
     try:
         portfolio.sellStock(ticker)
-        session['portfolio'] = serialize(portfolio)
-        return str(session['portfolio'])
-    except Exception as e:
-        raise e
+    except APICallLimitError:
+        return CALL_LIMIT_MESSAGE
+    session['portfolio'] = serialize(portfolio)
+    return str(session['portfolio'])
 
 
 @apiBlueprint.route('/totalValue', methods=['GET'])
