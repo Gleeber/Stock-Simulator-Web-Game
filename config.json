@@ -1,4 +1,3 @@
 {
-    "apiURL": "https://www.alphavantage.co/query",
-    "apiKey": "foo"
+    "apiURL": "https://www.alphavantage.co/query"
 }

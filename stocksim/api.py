@@ -2,6 +2,7 @@
 # Defines several functions for retrieving financial data from AlphaVantage API
 
 import json
+from random import randint
 from typing import cast
 
 from flask import Blueprint, jsonify, session
@@ -16,8 +17,11 @@ with open('config.json') as configFile:
     configJSON = json.load(configFile)
     # It seems that the Alpha Vantage API key can actually be any non-empty
     # string.
-    apiKey = configJSON['apiKey']
     apiURL = configJSON['apiURL']
+
+
+def getApiKey() -> str:
+    return ''.join(chr(randint(97, 122)) for _ in range(100))
 
 
 @apiBlueprint.route('/intraday/<ticker>', methods=['GET'])
@@ -84,7 +88,7 @@ def getIntradayStockData(
         'interval': '1min',
         'outputsize': 'full',
         'datatype': dataType,
-        'apikey': apiKey
+        'apikey': getApiKey()
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
@@ -96,7 +100,7 @@ def getDailyStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
         'symbol': stockSymbol,
         'outputsize': 'full',
         'datatype': dataType,
-        'apikey': apiKey
+        'apikey': getApiKey()
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
@@ -107,7 +111,7 @@ def getLatestStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
         'function': 'GLOBAL_QUOTE',
         'symbol': stockSymbol,
         'datatype': dataType,
-        'apikey': apiKey
+        'apikey': getApiKey()
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
@@ -118,7 +122,7 @@ def searchStockData(keyword: str, dataType: str = 'json') -> JSONDict:
         'function': 'SYMBOL_SEARCH',
         'keywords': keyword,
         'datatype': dataType,
-        'apikey': apiKey
+        'apikey': getApiKey()
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
     return cast(JSONDict, dataRequestResponse)
