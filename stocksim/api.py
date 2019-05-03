@@ -14,10 +14,7 @@ from .portfolio import deserialize, serialize
 
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
-
-with open('config.json') as configFile:
-    configJSON = json.load(configFile)
-    apiURL = configJSON['apiURL']
+apiURL = "https://www.alphavantage.co/query"
 
 
 def getApiKey() -> str:
@@ -25,7 +22,7 @@ def getApiKey() -> str:
     # string. We're using a random API key for each request in an attempt to
     # work around the 5 API requests / minute limit, but it doesn't actually
     # work.
-    return ''.join(chr(randint(97, 122)) for _ in range(100))
+    return ''.join(chr(randint(97, 122)) for _ in range(25))
 
 
 @apiBlueprint.route('/intraday/<ticker>', methods=['GET'])
@@ -107,11 +104,13 @@ def getDailyStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
     paramsJSON = {
         'function': 'TIME_SERIES_DAILY',
         'symbol': stockSymbol,
-        'outputsize': 'full',
+        'outputsize': 'compact',
         'datatype': dataType,
         'apikey': getApiKey()
     }
-    dataRequestResponse = requests.get(apiURL, params=paramsJSON).json()
+    dataRequestResponse = requests.get(apiURL, params=paramsJSON)
+    print(dataRequestResponse.url)
+    dataRequestResponse = dataRequestResponse.json()
     return cast(JSONDict, dataRequestResponse)
 
 
