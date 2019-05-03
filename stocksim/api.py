@@ -9,18 +9,26 @@ from flask import Blueprint, jsonify, session
 import requests
 
 from .custom_types import JSONDict
+from .errors import APICallLimitError
 from .portfolio import deserialize, serialize
+
+CALL_LIMIT_MESSAGE = (
+    "Slow down there, speed racer! You're making too many requests. "
+    "Please wait about 30 seconds and try again."
+)
 
 apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
 with open('config.json') as configFile:
     configJSON = json.load(configFile)
-    # It seems that the Alpha Vantage API key can actually be any non-empty
-    # string.
     apiURL = configJSON['apiURL']
 
 
 def getApiKey() -> str:
+    # It seems that the Alpha Vantage API key can actually be any non-empty
+    # string. We're using a random API key for each request in an attempt to
+    # work around the 5 API requests / minute limit, but it doesn't actually
+    # work.
     return ''.join(chr(randint(97, 122)) for _ in range(100))
 
 
@@ -51,7 +59,10 @@ def searchStocks(keyword):
 @apiBlueprint.route('/buy/<ticker>', methods=['POST'])
 def buyStock(ticker):
     portfolio = deserialize(session['portfolio'])
-    portfolio.buyStock(ticker)
+    try:
+        portfolio.buyStock(ticker)
+    except APICallLimitError:
+        return CALL_LIMIT_MESSAGE
     session['portfolio'] = serialize(portfolio)
     return str(session['portfolio'])
 
@@ -59,7 +70,10 @@ def buyStock(ticker):
 @apiBlueprint.route('/sell/<ticker>', methods=['POST'])
 def sellStock(ticker):
     portfolio = deserialize(session['portfolio'])
-    portfolio.sellStock(ticker)
+    try:
+        portfolio.sellStock(ticker)
+    except APICallLimitError:
+        return CALL_LIMIT_MESSAGE
     session['portfolio'] = serialize(portfolio)
     return str(session['portfolio'])
 

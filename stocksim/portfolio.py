@@ -2,6 +2,12 @@ from typing import Tuple, List
 
 from . import stock
 from .custom_types import JSONDict
+from .errors import APICallLimitError
+
+
+API_CALL_LIMIT_MESSAGE_PREFIX = (
+    'Thank you for using Alpha Vantage! Our standard API call frequency is'
+)
 
 
 class Portfolio():
@@ -16,7 +22,8 @@ class Portfolio():
 
     def buyStock(self, ticker: str) -> None:
         stockPrice = self.parseLatestPrice(ticker)
-        #priceHistory = self.parsePriceHistory(ticker)
+        # TODO why is priceHistory commented out?
+        # priceHistory = self.parsePriceHistory(ticker)
         foundStock = False
         for stockItem in self.stocks:
             if stockItem.ticker == ticker:
@@ -49,6 +56,9 @@ class Portfolio():
     def parseLatestPrice(self, ticker: str) -> float:
         from .api import getLatestStockData
         stockData = getLatestStockData(ticker)
+        if 'Note' in stockData and stockData['Note'].startswith(
+                API_CALL_LIMIT_MESSAGE_PREFIX):
+            raise APICallLimitError()
         stockPrice = float(stockData['Global Quote']['05. price'])
         return stockPrice
 
@@ -56,6 +66,9 @@ class Portfolio():
     def parsePriceHistory(self, ticker: str) -> List[Tuple[str, float]]:
         from .api import getDailyStockData
         stockData = getDailyStockData(ticker)
+        if 'Note' in stockData and stockData['Note'].startswith(
+                API_CALL_LIMIT_MESSAGE_PREFIX):
+            raise APICallLimitError()
         timeSeriesDaily = stockData['Time Series (Daily)']
         historyList = []
         for day in timeSeriesDaily.keys():
