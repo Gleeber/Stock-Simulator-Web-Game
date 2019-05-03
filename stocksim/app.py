@@ -4,7 +4,7 @@
 
 import json
 
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, request
 
 from .api import apiBlueprint, searchStockData
 from .portfolio import Portfolio, serialize
@@ -23,8 +23,10 @@ def create_app():
             session['portfolio'] = serialize(Portfolio(10000, []))
         return render_template('index.html')
 
-    @app.route('/search/<ticker>')
-    def search(ticker):
+    @app.route('/search', methods=['POST'])
+    def search():
+        print(request.form)
+        ticker = request.form['searchString']
         searchResults = searchStockData(ticker)
         print(json.dumps(searchResults, indent=1))
         return render_template('search.html', searchResults=searchResults, ticker=ticker)

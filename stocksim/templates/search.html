@@ -17,7 +17,7 @@
 {% endmacro %}
 {% block body %}
 <div class = "container">
-    <h2>Search results for: "{{ticker}}"</h2>
+    <h2>Search results for: "<span id="ticker">{{ticker}}</span>"</h2>
     <ul class="list-group">
         {% for result in searchResults['bestMatches'] %}
         {{stockPanel(result)}}

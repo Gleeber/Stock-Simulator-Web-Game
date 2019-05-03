@@ -25,7 +25,6 @@ function graphPriceHistory(){
                 dates.push(key);
                 prices.push(openPrice);
             });
-            console.log(dates);
             var graphElement = document.getElementById('priceHistoryGraph');
             var config = {
                 type: 'line',
