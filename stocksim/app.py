@@ -34,7 +34,7 @@ def create_app():
     @app.route('/about')
     def about():
         return """
-            CS372 Project by Jason Herning, Jake Herrman, George Meier, Dylan Palmieri, and Noah Snelson.
+            CS372 Project by Jason Herning, Jake Herrman, George Meier, Dylan Palmieri, Andrew Adler, and Noah Snelson.
             """
 
     return app
