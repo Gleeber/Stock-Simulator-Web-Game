@@ -10,7 +10,6 @@ function updateLatestPrice(){
             var stockSummary = this.response;
             if(stockSummary.Note === undefined){
                 stockSummary = stockSummary['Global Quote']
-                console.log(stockSummary)
                 document.getElementById('stockPrice').innerHTML =
                     stockSummary['05. price'];
                 document.getElementById('stockHigh').innerHTML =
@@ -38,7 +37,6 @@ function graphPriceHistory(){
         if(dailyPriceHistoryRequest.readyState === 4 
             && dailyPriceHistoryRequest.status === 200){
             var dailyPriceHistory = dailyPriceHistoryRequest.response;
-            console.log(dailyPriceHistory);
             if (dailyPriceHistory.Note === undefined){
                 var prices = [];
                 var dates = [];

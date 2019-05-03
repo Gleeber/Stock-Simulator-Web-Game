@@ -8,13 +8,7 @@ function updateTotalValue(){
     request.send();
 }
 function updatePortfolio(){
-    var request = new XMLHttpRequest();
-    var url = "http://127.0.0.1:5000/api/portfolio";
-    request.onreadystatechange = function() {
-        document.getElementById('portfolio').innerHTML = this.responseText;
-    };
-    request.open('GET', url, false);
-    request.send();
+    location.reload();
 }
 
 function updateAllUserInfo(){
@@ -23,5 +17,5 @@ function updateAllUserInfo(){
 }
 
 window.onload = function(){
-    updateAllUserInfo();
+    updateTotalValue();
 }

@@ -5,18 +5,17 @@
     <div class='col-2'>
         <h1>$<span id='tickerHeader'>{{tickerSymbol}}</span></h1>
         <br>
-        <h4>Latest Quote:</h4>
-        <br>
+        <h4>Today's Quote:</h4>
         <p><b>Price</b>: $<span id='stockPrice'> </span></p>
         <p><b>High:</b>  $<span id='stockHigh'> </span></p>
         <p><b>Low:</b> $<span id='stockLow'> </span></p>
-        <p><b>Percent Change:</b>  <span id='stockChange'> </span></p>
+        <p><b>Change:</b>  <span id='stockChange'> </span></p>
         <button class="btn btn-success"
-            onclick="buyStock('{{tickerSymbol}}'); updateAllUserInfo();">
+            onclick="buyStock('{{tickerSymbol}}');">
             Buy ${{tickerSymbol}}</button>
         <br><br>
         <button class="btn btn-success"
-            onclick="sellStock('{{tickerSymbol}}'); updateAllUserInfo();">
+            onclick="sellStock('{{tickerSymbol}}');">
             Sell ${{tickerSymbol}}</button>
     </div>
     <div class="col-10">
@@ -25,5 +24,6 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script src='{{url_for("static", filename="stockSummary.js")}}'></script>
+    <script src='{{url_for("static", filename="tradeStocks.js")}}'></script>
 </div>
 {% endblock %}

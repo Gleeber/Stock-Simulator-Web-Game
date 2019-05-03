@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
-
+{% macro stock(listItem) %}
+    {% set ticker = listItem['ticker'] %}
+    <li id="{{ticker}}" class="list-group-item">
+        <h4>${{ticker}}</h4>
+        <h5>Price: ${{listItem['price']}}</h5>
+        <h5>Count: {{listItem['count']}}</h5>
+        <button class="btn btn-outline-success btn-sm"
+            onclick="buyStock('{{ticker}}'); updateAllUserInfo();">Buy Microsoft</button>
+        <button class="btn btn-outline-success btn-sm"
+            onclick="sellStock('{{ticker}}'); updateAllUserInfo();">Sell Microsoft</button>
+    </li>
+{% endmacro %}
 {% block body %}
 <div class="container">
-    <h1>Portfolio:</h1>
-    <p>Total Portfolio Value:</p>
-    <p id='totalValue'></p>
-    <p><span id='portfolio'>{{session['portfolio']}}</span></p>
-    <button class="btn btn-outline-success btn-sm"
-        onclick="buyStock('MSFT'); updateAllUserInfo();">Buy Microsoft</button>
-    <button class="btn btn-outline-success btn-sm"
-        onclick="sellStock('MSFT'); updateAllUserInfo();">Sell Microsoft</button>
+    <h1>Portfolio:</h1><br>
+    <p><b>Cash</b>: $<span id="cash">{{session['portfolio']['cash']}}</span></p>
+    <p><b>Total Stock Value</b>: $<span id='totalValue'></span></p>
+    <ul class="list-group">
+        {% for listItem in session['portfolio']['stocks'] %}
+            {{ stock(listItem) }}
+        {% endfor %}
+    </ul>
 </div>
 <script type='text/javascript' src='{{url_for("static", filename="index.js")}}'></script>
 <script type='text/javascript' src='{{url_for("static", filename="tradeStocks.js")}}'></script>
