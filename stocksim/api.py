@@ -15,12 +15,14 @@ apiBlueprint = Blueprint('api', __name__, url_prefix='/api')
 
 with open('config.json') as configFile:
     configJSON = json.load(configFile)
-    # It seems that the Alpha Vantage API key can actually be any non-empty
-    # string.
     apiURL = configJSON['apiURL']
 
 
 def getApiKey() -> str:
+    # It seems that the Alpha Vantage API key can actually be any non-empty
+    # string. We're using a random API key for each request in an attempt to
+    # work around the 5 API requests / minute limit, but it doesn't actually
+    # work.
     return ''.join(chr(randint(97, 122)) for _ in range(100))
 
 

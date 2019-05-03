@@ -16,7 +16,8 @@ class Portfolio():
 
     def buyStock(self, ticker: str) -> None:
         stockPrice = self.parseLatestPrice(ticker)
-        #priceHistory = self.parsePriceHistory(ticker)
+        # TODO why is priceHistory commented out?
+        # priceHistory = self.parsePriceHistory(ticker)
         foundStock = False
         for stockItem in self.stocks:
             if stockItem.ticker == ticker:
