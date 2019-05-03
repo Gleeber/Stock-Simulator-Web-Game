@@ -16,6 +16,15 @@
     </div>
 {% endmacro %}
 {% block body %}
+<style>
+    .list-group{
+        display: inline-flex;
+        flex-direction: column;
+    }
+    .list-group-item{
+        flex: 1;
+    }
+</style>
 <div class = "container">
     <h2>Search results for: "<span id="ticker">{{ticker}}</span>"</h2>
     <ul class="list-group">
