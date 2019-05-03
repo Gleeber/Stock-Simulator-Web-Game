@@ -62,7 +62,7 @@ def buyStock(ticker):
     try:
         portfolio.buyStock(ticker)
     except APICallLimitError:
-        return CALL_LIMIT_MESSAGE
+        return "-1"
     session['portfolio'] = serialize(portfolio)
     return str(session['portfolio'])
 
@@ -73,7 +73,7 @@ def sellStock(ticker):
     try:
         portfolio.sellStock(ticker)
     except APICallLimitError:
-        return CALL_LIMIT_MESSAGE
+        return "-1"
     session['portfolio'] = serialize(portfolio)
     return str(session['portfolio'])
 

@@ -20,7 +20,7 @@ def create_app():
     @app.route('/')
     def index():
         if 'portfolio' not in session:
-            session['portfolio'] = serialize(Portfolio(500, []))
+            session['portfolio'] = serialize(Portfolio(10000, []))
         return render_template('index.html')
 
     @app.route('/search/<ticker>')

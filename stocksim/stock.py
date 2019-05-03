@@ -10,9 +10,15 @@ class Stock():
             self,
             ticker: str,
             price: float,
-            count: int,
+            count: int = 1,
+            name: str = "",
+            region: str = "",
+            currency: str = "",
             history: List[Tuple[str, float]] = []):
         self.ticker = ticker
+        self.name = name
+        self.region = region
+        self.currency = currency
         self.currentPrice = price
         self.count = count
         self.priceHistory = history

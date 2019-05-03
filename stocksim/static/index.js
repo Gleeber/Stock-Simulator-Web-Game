@@ -21,3 +21,7 @@ function updateAllUserInfo(){
     updateTotalValue();
     updatePortfolio();
 }
+
+window.onload = function(){
+    updateAllUserInfo();
+}
