@@ -31,4 +31,10 @@ def create_app():
         print(json.dumps(searchResults, indent=1))
         return render_template('search.html', searchResults=searchResults, ticker=ticker)
 
+    @app.route('/about')
+    def about():
+        return """
+            CS372 Project by Jason Herning, Jake Herrman, George Meier, Dylan Palmieri, and Noah Snelson.
+            """
+
     return app

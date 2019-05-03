@@ -4,10 +4,11 @@
     {% set tickerName = searchResult['1. symbol'] %}
     <div class="row">
         <li class="list-group-item">
-        <h4>{{searchResult['2. name']}} - 
+        <h4>{{searchResult['2. name']}} (
         <a href="/stock/{{searchResult['1. symbol']}}"">
-            ${{tickerName}}</a>
-        </h4>
+            ${{tickerName}}</a>)</h4>
+        <h5>Region: {{searchResult['4. region']}}</h5>
+        <h5>Currency: {{searchResult['8. currency']}}</h5>
         <button type="button" class="btn btn-outline-success btn-sm"
             onclick="buyStock('{{tickerName}}');">Buy</button>
         <button type="button" class="btn btn-outline-success btn-sm"
