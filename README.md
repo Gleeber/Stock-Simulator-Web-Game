@@ -12,7 +12,7 @@ TODO
 
 TODO (just link to them)
 
-### Class diagram
+### Class diagram/description
 
 TODO (polymorphism and composition)
 
