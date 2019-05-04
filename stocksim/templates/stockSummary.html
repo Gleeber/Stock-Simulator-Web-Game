@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
 {% block body %}
-<style>
-    #priceHistoryGraph {
-        border : 1px solid black;
-    }
-</style>
 <div class='container'>
-    <h1 id='tickerHeader'>{{tickerSymbol}}</h1>
-    <p id='stockSummary'><p>
-    <canvas id='priceHistoryGraph' height="100" width="200"></canvas>
+    <div class="row">
+    <div class='col-2'>
+        <h1>$<span id='tickerHeader'>{{tickerSymbol}}</span></h1>
+        <br>
+        <h4>Today's Quote:</h4>
+        <p><b>Price</b>: $<span id='stockPrice'> </span></p>
+        <p><b>High:</b>  $<span id='stockHigh'> </span></p>
+        <p><b>Low:</b> $<span id='stockLow'> </span></p>
+        <p><b>Change:</b>  <span id='stockChange'> </span></p>
+        <button class="btn btn-success"
+            onclick="buyStock('{{tickerSymbol}}');">
+            Buy ${{tickerSymbol}}</button>
+        <br><br>
+        <button class="btn btn-success"
+            onclick="sellStock('{{tickerSymbol}}');">
+            Sell ${{tickerSymbol}}</button>
+    </div>
+    <div class="col-10">
+        <canvas id='priceHistoryGraph' height="50" width="100"></canvas>
+    </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script src='{{url_for("static", filename="stockSummary.js")}}'></script>
+    <script src='{{url_for("static", filename="tradeStocks.js")}}'></script>
 </div>
 {% endblock %}

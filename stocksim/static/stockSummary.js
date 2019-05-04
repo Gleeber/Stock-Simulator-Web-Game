@@ -2,45 +2,78 @@
 function updateLatestPrice(){
     var tickerSymbol = document.getElementById('tickerHeader').innerText;
     var latestPriceRequest = new XMLHttpRequest();
+    latestPriceRequest.responseType = 'json';
     var latestPriceURL = 'http://127.0.0.1:5000/api/latest/' + tickerSymbol;
     latestPriceRequest.onreadystatechange = function() {
-        document.getElementById('stockSummary').innerHTML = this.responseText;
+        if(latestPriceRequest.readyState === 4 
+            && latestPriceRequest.status === 200){
+            var stockSummary = this.response;
+            if(stockSummary.Note === undefined){
+                stockSummary = stockSummary['Global Quote']
+                document.getElementById('stockPrice').innerHTML =
+                    stockSummary['05. price'];
+                document.getElementById('stockHigh').innerHTML =
+                    stockSummary['03. high'];
+                document.getElementById('stockLow').innerHTML =
+                    stockSummary['04. low'];
+                document.getElementById('stockChange').innerHTML =
+                    stockSummary['10. change percent'];
+            }
+            else{
+                alert("Rate limit exceeded - try to refresh in about 30 seconds.");
+            }
+        }
     }
     latestPriceRequest.open('GET', latestPriceURL, true);
     latestPriceRequest.send();
 }
 
 function graphPriceHistory(){
+    var tickerSymbol = document.getElementById('tickerHeader').innerText;
     var dailyPriceHistoryRequest = new XMLHttpRequest();
     dailyPriceHistoryRequest.responseType = 'json';
     var dailyPriceURL = 'http://127.0.0.1:5000/api/daily/' + tickerSymbol;
     dailyPriceHistoryRequest.onreadystatechange = function() {
-        var dailyPriceHistory = this.response;
-        var prices = [];
-        var dates = [];
-        Object.keys(dailyPriceHistory["Time Series (Daily)"]).forEach( key => {
-            var openPrice = dailyPriceHistory["Time Series (Daily)"][key]["2. high"];
-            dates.push(key);
-            prices.push(openPrice);
-        });
-        console.log(dates);
-        var graphElement = document.getElementById('priceHistoryGraph');
-        var config = {
-            type: 'line',
-            data: {
-                labels: dates,
-                datasets: [{
-                    label: "USD",
-                    data: prices,
-                    fill: true,
-                }]
-            },
-            options: {
-                responsive: true
+        if(dailyPriceHistoryRequest.readyState === 4 
+            && dailyPriceHistoryRequest.status === 200){
+            var dailyPriceHistory = dailyPriceHistoryRequest.response;
+            if (dailyPriceHistory.Note === undefined){
+                var prices = [];
+                var dates = [];
+                Object.keys(dailyPriceHistory["Time Series (Daily)"]).forEach( key => {
+                    var openPrice = 
+                        dailyPriceHistory["Time Series (Daily)"][key]["2. high"];
+                    dates.push(key);
+                    prices.push(openPrice);
+                });
+                var graphElement = document.getElementById('priceHistoryGraph');
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: "USD",
+                            data: prices,
+                            fill: false,
+                            backgroundColor: 'rgba(40, 167, 69, 1)' 
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                };
+                new Chart(graphElement, config);
             }
-        };
-        var chart = new Chart(graphElement, config);
+            else{
+                alert("Rate limit exceeded - try to refresh in about 30 seconds.");
+            }
+        }
     }
     dailyPriceHistoryRequest.open('GET', dailyPriceURL, true);
     dailyPriceHistoryRequest.send();
+}
+
+window.onload = () => {
+    updateLatestPrice();
+    graphPriceHistory();
 }
