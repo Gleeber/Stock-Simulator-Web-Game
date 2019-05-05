@@ -148,15 +148,15 @@ As of 4/26/19, our web-app runs on Docker! After installing Docker
 [Linux](https://www.docker.com/products/docker#/linux)), run
 
 ```
-docker pull dgpalmieri/stock-simulator 
+docker build . -t stock-simulator 
 ```
 
 and then
 
 ```
-docker run -p 8888:5000 dgpalmieri/stock-simulator
+docker run -p 5000:5000 stock-simulator
 ```
 
 Now, it should say somthing along the lines of "This app is running". If you
-open a browser and go to 127.0.0.1:8888, you should see the wonderfully
+open a browser and go to 127.0.0.1:5000, you should see the wonderfully
 feature-full Stock Simulator Web App in its full glory.
