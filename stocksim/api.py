@@ -109,7 +109,6 @@ def getDailyStockData(stockSymbol: str, dataType: str = 'json') -> JSONDict:
         'apikey': getApiKey()
     }
     dataRequestResponse = requests.get(apiURL, params=paramsJSON)
-    print(dataRequestResponse.url)
     dataRequestResponse = dataRequestResponse.json()
     return cast(JSONDict, dataRequestResponse)
 

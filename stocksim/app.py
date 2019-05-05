@@ -25,10 +25,8 @@ def create_app():
 
     @app.route('/search', methods=['POST'])
     def search():
-        print(request.form)
         ticker = request.form['searchString']
         searchResults = searchStockData(ticker)
-        print(json.dumps(searchResults, indent=1))
         return render_template('search.html', searchResults=searchResults, ticker=ticker)
 
     @app.route('/about')

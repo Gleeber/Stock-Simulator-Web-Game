@@ -8,5 +8,6 @@ COPY ./requirements.txt stocksim/requirements.txt
 RUN pip install -r stocksim/requirements.txt
 
 EXPOSE 5000
+EXPOSE 80
 ENV FLASK_APP stocksim
 CMD ["flask", "run", "--host", "0.0.0.0"]
