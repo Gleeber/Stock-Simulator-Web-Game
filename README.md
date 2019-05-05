@@ -1,16 +1,16 @@
-# Stock Simulator Web App (name subject to change)
-
-Interactive web app where users can simulate stock portfolios using real-world financial data.
+# Stock Trading Simulator
 
 ## Project design
 
 ### General design
 
-TODO
+This project was initially designed to be an interactive web app wherein users can search, buy, and sell any publicly traded stock. With the purpose being simulation, users would be able to trade with imaginary funds and view their portfolios performance in real time. Another proposed purpose would be for historical simulation; users would be able to have their portfolio start at some arbitrary date in the past, and users could buy, sell, and monitor performance using historical financial data. Unfortunately, we were not able to implement this feature of the project due to time constraints and technical complexity. For financial data, we would utilize the [AlphaVantage API](https://www.alphavantage.co/). To simplify implementation, this financial data would simply be queried when necessary rather than stored in a database or local storage. The project also utilizes Docker for containerization, to allow for cross-platform hosting and dependency management.
+
+The project's code is divided into primarily two components - the backend and the frontend of the web page. The backend is a REST API server written in the Flask framework for Python. This server essentially wraps the AlphaVantage API to provide endpoints for the frontend to query information regarding the user's portfolio, stock quotes, etc. This server also serves the relevant HTML/JavaScript files to client browsers. The backend includes a Portfolio and Stock class to represent the user's portfolio and all the contained stocks respectively, which are then serialized into JSON objects and delivered by the API. The Flask framework also provides a signed session-wide cookie, which is used as storage for user data such as the portfolio and recent searches. The frontend of the app is written in HTML and vanilla JavaScript, using the Bootstrap library for cross-browser compatibility and correct cross-platform DOM rendering. The website is mostly rendered client-side, as the served HTML is mostly a skeleton with JavaScript that queries the backend for necessary info such as user portfolio or financial data using HTTP requests and modifies the HTML accordingly.
 
 ### User stories
 
-TODO (just link to them)
+User stories are available in GitHub-hosted kanban boards under [projects](https://github.com/Gleeber/Stock-Simulator-Web-Game/projects).
 
 ### Class diagram/description
 
