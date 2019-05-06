@@ -40,9 +40,26 @@ the HTML accordingly.
 User stories are available in GitHub-hosted kanban boards under
 [projects](https://github.com/Gleeber/Stock-Simulator-Web-Game/projects).
 
-### Class diagram/description
+### Classes
 
-TODO (polymorphism and composition)
+#### APICallLimitError
+
+The type of exception raised when we detect that we've made too many calls to
+the Alpha Vantage API and must wait for a timeout.
+
+#### Portfolio
+
+Represents a user's portfolio. Utilizes **composition** by storing a `list` of
+`Stock` objects representing the shares in the portfolio. Also stores the
+user's total amount of cash and provides operations such as buying and selling
+stocks and calculating the total value of the portfolio.
+
+#### Stock
+
+Represents some amount of a particular stock. Maintains data items such as the
+number of shares represented by the `Stock` object, as well as the stock's
+ticker symbol, current price, and price history. Can be converted to and from
+JSON.
 
 ## Development guide
 
